@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S3Bank TechHub & Pitch Deck | SENAI Osasco — Turma 4DS</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Fonte Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            bgDeep: '#090D16',
+            cardSurface: '#111827',
+            neonPurple: '#8B5CF6',
+            electricBlue: '#3B82F6',
+            emeraldGreen: '#10B981',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    body {
+      background-color: #090D16;
+      color: #F3F4F6;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Superfícies Glassmorphism */
+    .glass-panel {
+      background: rgba(17, 24, 39, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-card {
+      background: linear-gradient(145deg, rgba(24, 33, 52, 0.75) 0%, rgba(13, 19, 33, 0.85) 100%);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .glass-card:hover {
+      border-color: rgba(139, 92, 246, 0.35);
+      box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.2);
+    }
+
+    /* Gradientes Dinâmicos dos Cartões por Nível */
+    .tier-bronze {
+      background: linear-gradient(135deg, #451a03 0%, #92400e 45%, #78350f 100%);
+      box-shadow: 0 15px 35px -10px rgba(217, 119, 6, 0.35);
+      border: 1px solid rgba(251, 191, 36, 0.35);
+    }
+
+    .tier-prata {
+      background: linear-gradient(135deg, #1e293b 0%, #64748b 50%, #334155 100%);
+      box-shadow: 0 15px 35px -10px rgba(148, 163, 184, 0.35);
+      border: 1px solid rgba(226, 232, 240, 0.4);
+    }
+
+    .tier-ouro {
+      background: linear-gradient(135deg, #713f12 0%, #eab308 50%, #a16207 100%);
+      box-shadow: 0 15px 35px -10px rgba(234, 179, 8, 0.45);
+      border: 1px solid rgba(254, 240, 138, 0.5);
+    }
+
+    .tier-diamante {
+      background: linear-gradient(135deg, #1e1b4b 0%, #3b82f6 40%, #8b5cf6 75%, #10b981 100%);
+      box-shadow: 0 15px 40px -8px rgba(139, 92, 246, 0.55);
+      border: 1px solid rgba(196, 181, 253, 0.6);
+    }
+
+    /* Scrollbar customizada */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090D16;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1F2937;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #4B5563;
+    }
+
+    /* Animação suave de entrada */
+    .fade-in {
+      animation: fadeIn 0.28s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-neonPurple selection:text-white">
+
+  <!-- BANNER SUPERIOR FIXO DE ÉTICA E SEGURANÇA -->
+  <div class="bg-gradient-to-r from-amber-950/90 via-slate-900 to-purple-950/90 border-b border-amber-500/25 px-4 py-2 text-xs text-amber-100/90 z-50">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+      <div class="flex items-center gap-2">
+        <i data-lucide="shield-alert" class="w-4 h-4 text-amber-400 shrink-0"></i>
+        <span>
+          <strong class="text-amber-300">Aviso Ético & Demonstrativo:</strong> O S3Bank é um projeto educacional (TCC — SENAI Osasco). Não movimenta dinheiro real nem possui vínculo com instituições financeiras. Chaves Pix e cartões exibidos são fictícios.
+        </span>
+      </div>
+      <span class="hidden lg:inline-flex items-center gap-1.5 text-[11px] font-mono bg-black/40 px-2.5 py-0.5 rounded-full border border-white/10 text-emerald-300">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        RLS Ativo • Sem chaves service_role
+      </span>
+    </div>
+  </div>
+
+  <!-- HEADER PRINCIPAL -->
+  <header class="sticky top-0 z-40 glass-panel border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <!-- Marca e Instituição -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-neonPurple via-electricBlue to-emeraldGreen flex items-center justify-center shadow-lg shadow-neonPurple/25">
+          <span class="font-extrabold text-white text-lg tracking-tighter">S3</span>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="font-bold text-base sm:text-lg text-white tracking-tight">S3Bank <span class="text-neonPurple font-semibold">TechHub</span></h1>
+            <span class="hidden md:inline-block text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-electricBlue/15 text-blue-300 border border-electricBlue/30">
+              SENAI Osasco • Turma 4DS
+            </span>
+          </div>
+          <p class="text-[11px] text-gray-400 hidden sm:block">Documentação Técnica & Pitch Deck de Avaliação</p>
+        </div>
+      </div>
+
+      <!-- Alternância Principal: Hub Técnico vs Pitch Deck -->
+      <div class="flex items-center bg-bgDeep/90 p-1 rounded-xl border border-white/10">
+        <button id="btnModeHub" onclick="switchAppMode('hub')" class="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all bg-neonPurple text-white shadow-md shadow-neonPurple/30">
+          <i data-lucide="layers" class="w-4 h-4"></i>
+          <span>Hub Técnico</span>
+        </button>
+        <button id="btnModePitch" onclick="switchAppMode('pitch')" class="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all text-gray-400 hover:text-white">
+          <i data-lucide="presentation" class="w-4 h-4"></i>
+          <span>Modo Apresentação</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       MODO 1: HUB TÉCNICO (DOCUMENTAÇÃO INTERATIVA & SIMULADOR)
+       ===================================================================== -->
+  <main id="hubView" class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="flex flex-col lg:flex-row gap-6">
+
+      <!-- Menu Lateral / Abas Navegáveis -->
+      <aside class="lg:w-64 shrink-0">
+        <nav class="glass-panel rounded-2xl p-2.5 flex lg:flex-col gap-1.5 overflow-x-auto lg:overflow-visible sticky top-20" aria-label="Navegação da Documentação">
+          <button onclick="switchHubTab('overview')" data-tab="overview" class="hub-tab-btn active flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-left whitespace-nowrap transition-all bg-neonPurple/20 text-white border border-neonPurple/40">
+            <i data-lucide="compass" class="w-4 h-4 text-neonPurple shrink-0"></i>
+            <span>1. Visão Geral & Controle</span>
+          </button>
+
+          <button onclick="switchHubTab('architecture')" data-tab="architecture" class="hub-tab-btn flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-left whitespace-nowrap transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent">
+            <i data-lucide="cpu" class="w-4 h-4 text-electricBlue shrink-0"></i>
+            <span>2. Arquitetura & Banco</span>
+          </button>
+
+          <button onclick="switchHubTab('directories')" data-tab="directories" class="hub-tab-btn flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-left whitespace-nowrap transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent">
+            <i data-lucide="folder-tree" class="w-4 h-4 text-amber-400 shrink-0"></i>
+            <span>3. Árvore de Diretórios</span>
+          </button>
+
+          <button onclick="switchHubTab('requirements')" data-tab="requirements" class="hub-tab-btn flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-left whitespace-nowrap transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent">
+            <i data-lucide="list-checks" class="w-4 h-4 text-emeraldGreen shrink-0"></i>
+            <span>4. Requisitos & Regras</span>
+          </button>
+
+          <button onclick="switchHubTab('usecases')" data-tab="usecases" class="hub-tab-btn flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-left whitespace-nowrap transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent">
+            <i data-lucide="users" class="w-4 h-4 text-pink-400 shrink-0"></i>
+            <span>5. Casos de Uso (UML)</span>
+          </button>
+
+          <button onclick="switchHubTab('simulator')" data-tab="simulator" class="hub-tab-btn flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-left whitespace-nowrap transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent">
+            <i data-lucide="sparkles" class="w-4 h-4 text-emeraldGreen shrink-0"></i>
+            <span>6. Simulador CDI & Cartão</span>
+          </button>
+        </nav>
+      </aside>
+
+      <!-- Área de Conteúdo Dinâmico das Abas -->
+      <div class="flex-1 min-w-0">
+
+        <!-- ABA 1: VISÃO GERAL & CONTROLE -->
+        <section id="tab-overview" class="hub-section fade-in space-y-6">
+          <div class="glass-card rounded-2xl p-6 sm:p-8 relative overflow-hidden">
+            <div class="absolute -right-12 -top-12 w-48 h-48 bg-neonPurple/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neonPurple/15 border border-neonPurple/30 text-purple-300 text-xs font-semibold mb-4">
+              <i data-lucide="rocket" class="w-3.5 h-3.5"></i>
+              Solução Financeira Digital • Web & Mobile
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-3">
+              Transformando o hábito de guardar dinheiro em evolução real
+            </h2>
+            <p class="text-gray-300 text-sm sm:text-base leading-relaxed mb-6">
+              O <strong class="text-white">S3Bank</strong> é uma solução financeira digital criada para apoiar jovens e estudantes na organização das finanças pessoais, no acompanhamento transparente de movimentações e na construção da constância financeira. Por meio de <span class="text-emerald-400 font-medium">caixinhas com metas</span>, <span class="text-blue-400 font-medium">fluxo Pix demonstrativo</span> e <span class="text-purple-400 font-medium">gamificação por pontos de constância</span>, o usuário evolui de nível e desbloqueia rendimentos maiores do CDI.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="bg-bgDeep/70 border border-white/10 rounded-xl p-4">
+                <div class="flex items-center gap-2 text-purple-400 font-semibold text-sm mb-1">
+                  <i data-lucide="target" class="w-4 h-4"></i>
+                  <span>Foco na Constância</span>
+                </div>
+                <p class="text-xs text-gray-400 leading-relaxed">Aportes concedem pontos fixos + fração do valor, recompensando a frequência do hábito, não apenas altos valores.</p>
+              </div>
+              <div class="bg-bgDeep/70 border border-white/10 rounded-xl p-4">
+                <div class="flex items-center gap-2 text-blue-400 font-semibold text-sm mb-1">
+                  <i data-lucide="smartphone" class="w-4 h-4"></i>
+                  <span>Ecossistema Duplo</span>
+                </div>
+                <p class="text-xs text-gray-400 leading-relaxed">Site institucional/demonstrativo em React + Vite e aplicativo funcional multiplataforma em Flutter + Dart.</p>
+              </div>
+              <div class="bg-bgDeep/70 border border-white/10 rounded-xl p-4">
+                <div class="flex items-center gap-2 text-emerald-400 font-semibold text-sm mb-1">
+                  <i data-lucide="shield-check" class="w-4 h-4"></i>
+                  <span>Segurança em Nuvem</span>
+                </div>
+                <p class="text-xs text-gray-400 leading-relaxed">Integração Mobile com Supabase Auth, PostgreSQL, funções transacionais RPC e políticas RLS por linha.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quadro de Controle do Documento & Repositórios -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2 glass-card rounded-2xl p-6">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                  <i data-lucide="file-text" class="w-4 h-4 text-neonPurple"></i>
+                  Controle do Documento Técnico
+                </h3>
+                <span class="text-xs font-mono bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 px-2.5 py-0.5 rounded-full">Versão 1.0</span>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm border-collapse">
+                  <tbody class="divide-y divide-white/10">
+                    <tr>
+                      <th class="py-2.5 pr-4 text-gray-400 font-medium w-1/3">Instituição / Turma</th>
+                      <td class="py-2.5 text-white font-semibold">SENAI Osasco — Turma 4DS (Desenvolvimento de Sistemas)</td>
+                    </tr>
+                    <tr>
+                      <th class="py-2.5 pr-4 text-gray-400 font-medium">Projeto</th>
+                      <td class="py-2.5 text-white">S3Bank — Plataforma Web & Aplicativo Mobile</td>
+                    </tr>
+                    <tr>
+                      <th class="py-2.5 pr-4 text-gray-400 font-medium">Integrantes</th>
+                      <td class="py-2.5">
+                        <div class="flex flex-wrap gap-2">
+                          <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-purple-200">Cauã Borges</span>
+                          <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-blue-200">Denise Gonçalves</span>
+                          <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-emerald-200">Pedro Campos</span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th class="py-2.5 pr-4 text-gray-400 font-medium">Escopo Documentado</th>
+                      <td class="py-2.5 text-gray-300 text-xs leading-relaxed">Arquitetura modular, estrutura de diretórios, integração Supabase, análise de requisitos (RF/RNF), regras de negócio (RN) e diagramas de casos de uso.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Card Repositórios GitHub -->
+            <div class="glass-card rounded-2xl p-6 flex flex-col justify-between">
+              <div>
+                <h3 class="text-base font-bold text-white flex items-center gap-2 mb-2">
+                  <i data-lucide="git-branch" class="w-4 h-4 text-electricBlue"></i>
+                  Repositórios Oficiais
+                </h3>
+                <p class="text-xs text-gray-400 mb-4">Acesse o código-fonte de cada camada do ecossistema S3Bank no GitHub:</p>
+
+                <div class="space-y-3">
+                  <a href="https://github.com/CauaBorges438/S3Bank" target="_blank" rel="noopener noreferrer" class="block p-3.5 rounded-xl bg-bgDeep/80 border border-white/10 hover:border-electricBlue/60 transition-all group">
+                    <div class="flex items-center justify-between mb-1">
+                      <span class="text-xs font-bold text-blue-400 uppercase tracking-wider">Aplicativo Mobile</span>
+                      <i data-lucide="external-link" class="w-3.5 h-3.5 text-gray-500 group-hover:text-blue-400"></i>
+                    </div>
+                    <p class="text-sm font-semibold text-white">CauaBorges438/S3Bank</p>
+                    <p class="text-[11px] text-gray-400 mt-0.5">Flutter • Dart • Provider • Supabase</p>
+                  </a>
+
+                  <a href="https://github.com/ninis333/S3BankTcc" target="_blank" rel="noopener noreferrer" class="block p-3.5 rounded-xl bg-bgDeep/80 border border-white/10 hover:border-neonPurple/60 transition-all group">
+                    <div class="flex items-center justify-between mb-1">
+                      <span class="text-xs font-bold text-purple-400 uppercase tracking-wider">Plataforma Web</span>
+                      <i data-lucide="external-link" class="w-3.5 h-3.5 text-gray-500 group-hover:text-purple-400"></i>
+                    </div>
+                    <p class="text-sm font-semibold text-white">ninis333/S3BankTcc</p>
+                    <p class="text-[11px] text-gray-400 mt-0.5">React 18 • Vite • React Router • CSS</p>
+                  </a>
+                </div>
+              </div>
+
+              <button onclick="switchHubTab('simulator')" class="mt-5 w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-neonPurple to-electricBlue hover:opacity-95 text-white text-xs font-semibold flex items-center justify-center gap-2 shadow-lg shadow-neonPurple/25 transition-all">
+                <i data-lucide="play" class="w-3.5 h-3.5"></i>
+                Testar Simulador de Economia
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ABA 2: ARQUITETURA & BANCO DE DADOS -->
+        <section id="tab-architecture" class="hub-section hidden fade-in space-y-6">
+          <div class="glass-card rounded-2xl p-6">
+            <h2 class="text-xl font-bold text-white mb-2">Arquitetura & Stack Tecnológica</h2>
+            <p class="text-sm text-gray-400 mb-6">
+              O S3Bank não segue um padrão MVC monolítico tradicional: a camada Web adota <strong class="text-gray-200">componentização declarativa em React</strong>, enquanto o aplicativo Mobile implementa <strong class="text-gray-200">separação por responsabilidades</strong> (Screens, Models, Providers, Services, Widgets e Core).
+            </p>
+
+            <!-- Cards das 4 Camadas -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+              <div class="bg-bgDeep/80 border border-purple-500/25 rounded-xl p-4">
+                <span class="text-[11px] font-mono uppercase text-purple-400 font-semibold">Camada Web</span>
+                <h3 class="text-base font-bold text-white mt-1 mb-2">React 18 + Vite</h3>
+                <ul class="text-xs text-gray-300 space-y-1.5">
+                  <li>• Interface modular por componentes</li>
+                  <li>• Navegação SPA com React Router</li>
+                  <li>• Tokens visuais em CSS customizado</li>
+                </ul>
+              </div>
+
+              <div class="bg-bgDeep/80 border border-blue-500/25 rounded-xl p-4">
+                <span class="text-[11px] font-mono uppercase text-blue-400 font-semibold">Camada Mobile</span>
+                <h3 class="text-base font-bold text-white mt-1 mb-2">Flutter / Dart</h3>
+                <ul class="text-xs text-gray-300 space-y-1.5">
+                  <li>• Material 3 (Dark Theme)</li>
+                  <li>• Estado reativo via Provider</li>
+                  <li>• Gerador BR Code Pix (EMV + CRC16)</li>
+                </ul>
+              </div>
+
+              <div class="bg-bgDeep/80 border border-emerald-500/25 rounded-xl p-4">
+                <span class="text-[11px] font-mono uppercase text-emerald-400 font-semibold">Backend & Auth</span>
+                <h3 class="text-base font-bold text-white mt-1 mb-2">Supabase</h3>
+                <ul class="text-xs text-gray-300 space-y-1.5">
+                  <li>• Supabase Auth (Cadastro, Login, Reset)</li>
+                  <li>• Funções RPC transacionais</li>
+                  <li>• Trigger <code class="text-emerald-300">handle_new_user</code></li>
+                </ul>
+              </div>
+
+              <div class="bg-bgDeep/80 border border-amber-500/25 rounded-xl p-4">
+                <span class="text-[11px] font-mono uppercase text-amber-400 font-semibold">Persistência</span>
+                <h3 class="text-base font-bold text-white mt-1 mb-2">PostgreSQL</h3>
+                <ul class="text-xs text-gray-300 space-y-1.5">
+                  <li>• 8 tabelas relacionais estruturadas</li>
+                  <li>• Row Level Security (RLS) por linha</li>
+                  <li>• Validação de saldo no servidor</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Fluxo Lógico Mobile -->
+            <div class="bg-bgDeep/90 border border-white/10 rounded-xl p-5">
+              <h3 class="text-xs font-mono uppercase tracking-wider text-gray-400 mb-3 flex items-center gap-2">
+                <i data-lucide="arrow-right-left" class="w-4 h-4 text-electricBlue"></i>
+                Fluxo Lógico de Comunicação (Aplicativo Mobile)
+              </h3>
+              <div class="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm font-medium">
+                <span class="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white">👤 Usuário</span>
+                <i data-lucide="arrow-right" class="w-4 h-4 text-gray-500"></i>
+                <span class="px-3 py-2 rounded-lg bg-blue-500/15 border border-blue-500/30 text-blue-200">Telas Flutter</span>
+                <i data-lucide="arrow-right" class="w-4 h-4 text-gray-500"></i>
+                <span class="px-3 py-2 rounded-lg bg-purple-500/15 border border-purple-500/30 text-purple-200">Providers / ChangeNotifier</span>
+                <i data-lucide="arrow-right" class="w-4 h-4 text-gray-500"></i>
+                <span class="px-3 py-2 rounded-lg bg-indigo-500/15 border border-indigo-500/30 text-indigo-200">Services (BankService)</span>
+                <i data-lucide="arrow-right" class="w-4 h-4 text-gray-500"></i>
+                <span class="px-3 py-2 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-200">Supabase Auth / PostgreSQL (RPC)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Estrutura Lógica do Banco de Dados -->
+          <div class="glass-card rounded-2xl p-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+              <div>
+                <h3 class="text-lg font-bold text-white">Estrutura Lógica de Dados (PostgreSQL / Supabase)</h3>
+                <p class="text-xs text-gray-400">Relação das 8 tabelas identificadas no repositório Mobile e suas responsabilidades conceituais.</p>
+              </div>
+              <span class="inline-flex items-center gap-1.5 text-xs font-mono bg-red-500/10 text-red-300 border border-red-500/30 px-3 py-1 rounded-lg">
+                <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+                Nunca expor chave service_role
+              </span>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-sm border-collapse">
+                <thead>
+                  <tr class="border-b border-white/15 text-xs uppercase text-gray-400">
+                    <th class="py-3 px-3">Tabela</th>
+                    <th class="py-3 px-3">Responsabilidade Conceitual</th>
+                    <th class="py-3 px-3 hidden sm:table-cell">Operações / Segurança</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-white/10 text-xs sm:text-sm">
+                  <tr class="hover:bg-white/[0.02]">
+                    <td class="py-2.5 px-3 font-mono text-purple-300 font-semibold">perfis</td>
+                    <td class="py-2.5 px-3 text-gray-200">Informações associadas ao perfil do usuário e pontos de constância.</td>
+                    <td class="py-2.5 px-3 hidden sm:table-cell text-gray-400">Criado via trigger <code class="text-xs">handle_new_user</code> • RLS</td>
+                  </tr>
+                  <tr class="hover:bg-white/[0.02]">
+                    <td class="py-2.5 px-3 font-mono text-purple-300 font-semibold">carteiras</td>
+                    <td class="py-2.5 px-3 text-gray-200">Dados da carteira principal e informações de saldo disponível.</td>
+                    <td class="py-2.5 px-3 hidden sm:table-cell text-gray-400">Bônus inicial R$ 1.000 • Atualizado via RPC</td>
+                  </tr>
+                  <tr class="hover:bg-white/[0.02]">
+                    <td class="py-2.5 px-3 font-mono text-purple-300 font-semibold">transacoes</td>
+                    <td class="py-2.5 px-3 text-gray-200">Registros do histórico de movimentações financeiras (extrato).</td>
+                    <td class="py-2.5 px-3 hidden sm:table-cell text-gray-400">Funções <code class="text-xs">enviar_pix</code> / <code class="text-xs">receber_pix</code></td>
+                  </tr>
+                  <tr class="hover:bg-white/[0.02]">
+                    <td class="py-2.5 px-3 font-mono text-purple-300 font-semibold">caixinhas</td>
+                    <td class="py-2.5 px-3 text-gray-200">Metas ou reservas de economia criadas pelo usuário.</td>
+                    <td class="py-2.5 px-3 hidden sm:table-cell text-gray-400">RPC <code class="text-xs">depositar_caixinha</code> / <code class="text-xs">resgatar_caixinha</code></td>
+                  </tr>
+                  <tr class="hover:bg-white/[0.02]">
+                    <td class="py-2.5 px-3 font-mono text-purple-300 font-semibold">cartoes</td>
+                    <td class="py-2.5 px-3 text-gray-200">Informações do cartão digital vinculado ao nível do usuário.</td>
+                    <td class="py-2.5 px-3 hidden sm:table-cell text-gray-400">Sincronizado via <code class="text-xs">CardProvider.syncTier</code></td>
+                  </tr>
+                  <tr class="hover:bg-white/[0.02]">
+                    <td class="py-2.5 px-3 font-mono text-purple-300 font-semibold">chaves_pix</td>
+                    <td class="py-2.5 px-3 text-gray-200">Chaves Pix demonstrativas vinculadas ao usuário (CPF, e-mail, celular, aleatória).</td>
+                    <td class="py-2.5 px-3 hidden sm:table-cell text-gray-400">Inserção e exclusão protegidas por RLS</td>
+                  </tr>
+                  <tr class="hover:bg-white/[0.02]">
+                    <td class="py-2.5 px-3 font-mono text-purple-300 font-semibold">regras_nivel</td>
+                    <td class="py-2.5 px-3 text-gray-200">Parâmetros de pontuação e progressão (Bronze, Prata, Ouro, Diamante).</td>
+                    <td class="py-2.5 px-3 hidden sm:table-cell text-gray-400">Consulta de faixas de pontos</td>
+                  </tr>
+                  <tr class="hover:bg-white/[0.02]">
+                    <td class="py-2.5 px-3 font-mono text-purple-300 font-semibold">taxas_cdi</td>
+                    <td class="py-2.5 px-3 text-gray-200">Percentuais demonstrativos de rendimento associados ao CDI por nível.</td>
+                    <td class="py-2.5 px-3 hidden sm:table-cell text-gray-400">100% a 140% do CDI (parâmetro ilustrativo)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ABA 3: ÁRVORE DE DIRETÓRIOS INTERATIVA -->
+        <section id="tab-directories" class="hub-section hidden fade-in space-y-6">
+          <div class="glass-card rounded-2xl p-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+              <div>
+                <h2 class="text-xl font-bold text-white">Árvore de Diretórios Interativa</h2>
+                <p class="text-xs sm:text-sm text-gray-400">Clique em qualquer pasta ou arquivo para inspecionar sua responsabilidade técnica.</p>
+              </div>
+              <div class="inline-flex bg-bgDeep p-1 rounded-xl border border-white/10 self-start">
+                <button id="btnTreeMobile" onclick="switchTreeRepo('mobile')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-electricBlue text-white transition-all">
+                  Mobile (lib/)
+                </button>
+                <button id="btnTreeWeb" onclick="switchTreeRepo('web')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-gray-400 hover:text-white transition-all">
+                  Web (src/)
+                </button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <!-- Lista de Arquivos -->
+              <div id="treeListContainer" class="lg:col-span-6 bg-bgDeep/90 border border-white/10 rounded-xl p-4 font-mono text-xs space-y-1 max-h-[420px] overflow-y-auto">
+                <!-- Preenchido via JS -->
+              </div>
+
+              <!-- Painel de Detalhes do Item Selecionado -->
+              <div class="lg:col-span-6 bg-gradient-to-br from-slate-900 to-bgDeep border border-white/10 rounded-xl p-6 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center gap-2 text-xs font-mono text-neonPurple mb-2" id="treeDetailBadge">
+                    <i data-lucide="file-code" class="w-4 h-4"></i>
+                    <span>Módulo Selecionado</span>
+                  </div>
+                  <h3 id="treeDetailPath" class="text-lg font-mono font-bold text-white mb-3 break-all">lib/core/pix_payload_generator.dart</h3>
+                  <p id="treeDetailDesc" class="text-sm text-gray-300 leading-relaxed mb-4">
+                    Responsável por gerar o payload BR Code do Pix no padrão EMV com cálculo de checksum CRC16 e sanitização de acentos.
+                  </p>
+                  <div class="p-3.5 rounded-lg bg-black/40 border border-white/5">
+                    <span class="text-[11px] uppercase tracking-wider text-gray-400 block mb-1">Papel na Arquitetura</span>
+                    <p id="treeDetailRole" class="text-xs text-emerald-300 font-medium">Núcleo utilitário compartilhado (Core) validado por testes unitários.</p>
+                  </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-gray-400">
+                  <span id="treeRepoLabel">Repositório: CauaBorges438/S3Bank</span>
+                  <span class="font-mono text-purple-300">Turma 4DS</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ABA 4: MATRIZ DE REQUISITOS & REGRAS DE NEGÓCIO -->
+        <section id="tab-requirements" class="hub-section hidden fade-in space-y-6">
+          <div class="glass-card rounded-2xl p-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+              <div>
+                <h2 class="text-xl font-bold text-white">Matriz de Requisitos & Regras de Negócio</h2>
+                <p class="text-xs sm:text-sm text-gray-400">Explore os 11 Requisitos Funcionais, 8 Não Funcionais e 7 Regras de Negócio do S3Bank.</p>
+              </div>
+
+              <!-- Busca -->
+              <div class="relative w-full md:w-64">
+                <i data-lucide="search" class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+                <input id="reqSearchInput" oninput="renderRequirements()" type="text" placeholder="Filtrar por código ou termo..." class="w-full bg-bgDeep border border-white/15 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-neonPurple" />
+              </div>
+            </div>
+
+            <!-- Botões de Filtro -->
+            <div class="flex flex-wrap gap-2 mb-6">
+              <button onclick="setReqFilter('ALL')" data-reqfilter="ALL" class="req-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-neonPurple text-white transition-all">
+                Todos (26)
+              </button>
+              <button onclick="setReqFilter('RF')" data-reqfilter="RF" class="req-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white/5 text-gray-300 hover:bg-white/10 border border-white/10 transition-all">
+                Funcionais • RF01–RF11 (11)
+              </button>
+              <button onclick="setReqFilter('RNF')" data-reqfilter="RNF" class="req-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white/5 text-gray-300 hover:bg-white/10 border border-white/10 transition-all">
+                Não Funcionais • RNF01–RNF08 (8)
+              </button>
+              <button onclick="setReqFilter('RN')" data-reqfilter="RN" class="req-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white/5 text-gray-300 hover:bg-white/10 border border-white/10 transition-all">
+                Regras de Negócio • RN01–RN07 (7)
+              </button>
+            </div>
+
+            <!-- Lista de Requisitos -->
+            <div id="requirementsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+              <!-- Renderizado via JS -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ABA 5: DIAGRAMAS DE CASOS DE USO (UML) -->
+        <section id="tab-usecases" class="hub-section hidden fade-in space-y-6">
+          <div class="glass-card rounded-2xl p-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+              <div>
+                <h2 class="text-xl font-bold text-white">Diagramas de Casos de Uso (UML)</h2>
+                <p class="text-xs sm:text-sm text-gray-400">Separação clara entre a jornada institucional do Site e as operações financeiras do Aplicativo Móvel.</p>
+              </div>
+
+              <div class="inline-flex bg-bgDeep p-1 rounded-xl border border-white/10 self-start">
+                <button id="btnUcMobile" onclick="switchUseCaseView('mobile')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-neonPurple text-white transition-all">
+                  Aplicativo Móvel (10 UCs)
+                </button>
+                <button id="btnUcWeb" onclick="switchUseCaseView('web')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-gray-400 hover:text-white transition-all">
+                  Site Institucional (6 UCs)
+                </button>
+              </div>
+            </div>
+
+            <!-- Container do Diagrama UML Interativo -->
+            <div id="ucDiagramWrapper" class="space-y-6">
+              <!-- Preenchido via JS -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ABA 6: SIMULADOR GAMIFICADO DE CONSTÂNCIA & CDI -->
+        <section id="tab-simulator" class="hub-section hidden fade-in space-y-6">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+            <!-- Coluna Esquerda: Cartão Digital Dinâmico + Nível + Controles -->
+            <div class="lg:col-span-7 glass-card rounded-2xl p-6 space-y-6">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                    <i data-lucide="sparkles" class="w-5 h-5 text-emeraldGreen"></i>
+                    Simulador "Guardar Dinheiro"
+                  </h2>
+                  <p class="text-xs text-gray-400">Faça aportes nas caixinhas, ganhe pontos de constância e veja o cartão evoluir!</p>
+                </div>
+                <button onclick="resetSimulator()" class="text-xs px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 flex items-center gap-1.5 transition-all">
+                  <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                  Resetar
+                </button>
+              </div>
+
+              <!-- Cartão Digital Dinâmico -->
+              <div id="digitalCardVisual" class="tier-bronze rounded-2xl p-6 text-white relative overflow-hidden transition-all duration-500">
+                <div class="absolute -right-8 -bottom-10 w-40 h-40 rounded-full bg-white/10 blur-2xl pointer-events-none"></div>
+                <div class="flex items-center justify-between mb-6">
+                  <div class="flex items-center gap-2">
+                    <span class="font-extrabold text-lg tracking-tight">S3Bank</span>
+                    <span id="cardTierBadge" class="text-[11px] font-bold uppercase px-2.5 py-0.5 rounded-full bg-black/35 border border-white/25">
+                      Nível Bronze • 100% CDI
+                    </span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <button onclick="toggleCardVisibility()" title="Ocultar/Mostrar dados" class="p-1.5 rounded-lg bg-black/25 hover:bg-black/40 transition-all">
+                      <i id="cardEyeIcon" data-lucide="eye" class="w-4 h-4"></i>
+                    </button>
+                    <button onclick="toggleCardLock()" title="Bloquear/Desbloquear cartão" class="p-1.5 rounded-lg bg-black/25 hover:bg-black/40 transition-all">
+                      <i id="cardLockIcon" data-lucide="unlock" class="w-4 h-4"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="mb-5">
+                  <p class="text-[11px] uppercase tracking-widest text-white/75 mb-1">Número do Cartão (Fictício)</p>
+                  <p id="cardNumberDisplay" class="font-mono text-lg sm:text-xl tracking-widest font-semibold">4532 •••• •••• 8910</p>
+                </div>
+
+                <div class="flex items-end justify-between text-xs">
+                  <div>
+                    <p class="text-[10px] uppercase text-white/70">Titular</p>
+                    <p class="font-semibold tracking-wide">ESTUDANTE 4DS • SENAI</p>
+                  </div>
+                  <div class="flex gap-4 font-mono">
+                    <div>
+                      <p class="text-[10px] uppercase text-white/70">Validade</p>
+                      <p id="cardExpDisplay">11/30</p>
+                    </div>
+                    <div>
+                      <p class="text-[10px] uppercase text-white/70">CVV</p>
+                      <p id="cardCvvDisplay">•••</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div id="cardBlockedOverlay" class="hidden absolute inset-0 bg-black/75 backdrop-blur-xs flex flex-col items-center justify-center text-center p-4">
+                  <i data-lucide="lock" class="w-8 h-8 text-red-400 mb-2"></i>
+                  <p class="font-bold text-sm text-white">Cartão Digital Bloqueado Temporariamente</p>
+                  <p class="text-xs text-gray-300 mt-1">Clique no cadeado acima para desbloquear.</p>
+                </div>
+              </div>
+
+              <!-- Barra de Progresso de Constância -->
+              <div class="bg-bgDeep/85 border border-white/10 rounded-xl p-4">
+                <div class="flex items-center justify-between text-xs mb-2">
+                  <span class="text-gray-300 font-medium">Pontos de Constância: <strong id="simPointsText" class="text-white font-mono">0 pts</strong></span>
+                  <span id="simNextTierText" class="text-purple-300 font-medium">Faltam 100 pts para Prata (115% CDI)</span>
+                </div>
+                <div class="w-full h-3 bg-gray-800 rounded-full overflow-hidden p-0.5">
+                  <div id="simProgressBar" class="h-full rounded-full bg-gradient-to-r from-neonPurple via-electricBlue to-emeraldGreen transition-all duration-500" style="width: 4%;"></div>
+                </div>
+                <div class="grid grid-cols-4 gap-1 text-[10px] text-gray-400 mt-2 text-center font-mono">
+                  <span>Bronze (0)</span>
+                  <span>Prata (100)</span>
+                  <span>Ouro (250)</span>
+                  <span>Diamante (500)</span>
+                </div>
+              </div>
+
+              <!-- Ações de Aporte -->
+              <div>
+                <p class="text-xs font-semibold text-gray-300 mb-2.5">Simular Aporte na Caixinha (ganha +25 pts fixos + 10% do valor):</p>
+                <div class="grid grid-cols-3 gap-2.5 mb-3">
+                  <button onclick="makeDeposit(50)" class="py-2.5 px-3 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/35 text-emerald-300 font-semibold text-xs sm:text-sm transition-all">
+                    + R$ 50,00
+                  </button>
+                  <button onclick="makeDeposit(150)" class="py-2.5 px-3 rounded-xl bg-blue-500/15 hover:bg-blue-500/25 border border-blue-500/35 text-blue-300 font-semibold text-xs sm:text-sm transition-all">
+                    + R$ 150,00
+                  </button>
+                  <button onclick="makeDeposit(300)" class="py-2.5 px-3 rounded-xl bg-purple-500/15 hover:bg-purple-500/25 border border-purple-500/35 text-purple-300 font-semibold text-xs sm:text-sm transition-all">
+                    + R$ 300,00
+                  </button>
+                </div>
+
+                <div class="flex gap-2">
+                  <input id="customDepositInput" type="number" min="1" max="1000" placeholder="Outro valor (ex: 80)" class="flex-1 bg-bgDeep border border-white/15 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white placeholder-gray-500 focus:outline-none focus:border-emeraldGreen" />
+                  <button onclick="handleCustomDeposit()" class="px-4 py-2 rounded-xl bg-emeraldGreen hover:bg-emerald-500 text-bgDeep font-bold text-xs sm:text-sm transition-all">
+                    Guardar
+                  </button>
+                </div>
+              </div>
+
+              <!-- Feedback Empático -->
+              <div id="simFeedbackBox" class="p-3.5 rounded-xl bg-purple-500/10 border border-purple-500/30 text-xs text-purple-200 flex items-start gap-2.5">
+                <i data-lucide="message-circle-heart" class="w-4 h-4 text-neonPurple shrink-0 mt-0.5"></i>
+                <span id="simFeedbackText">Conta criada com bônus inicial de R$ 1.000,00 (via trigger handle_new_user). Faça seu primeiro aporte para ganhar pontos de constância!</span>
+              </div>
+            </div>
+
+            <!-- Coluna Direita: Carteira, Caixinha e Extrato -->
+            <div class="lg:col-span-5 space-y-6">
+              <!-- Saldos -->
+              <div class="glass-card rounded-2xl p-6 space-y-4">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs uppercase tracking-wider text-gray-400 font-semibold">Resumo Financeiro</span>
+                  <span id="simCdiRateBadge" class="text-xs font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/30">
+                    Rendimento: 100% CDI
+                  </span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                  <div class="bg-bgDeep/80 border border-white/10 rounded-xl p-3.5">
+                    <p class="text-[11px] text-gray-400 mb-1">Saldo em Carteira</p>
+                    <p id="simWalletBalance" class="text-lg sm:text-xl font-extrabold text-white font-mono">R$ 1.000,00</p>
+                  </div>
+                  <div class="bg-bgDeep/80 border border-emerald-500/25 rounded-xl p-3.5">
+                    <p class="text-[11px] text-emerald-300 mb-1">Total nas Caixinhas</p>
+                    <p id="simSavingsBalance" class="text-lg sm:text-xl font-extrabold text-emerald-400 font-mono">R$ 0,00</p>
+                  </div>
+                </div>
+
+                <div class="pt-2 border-t border-white/10 flex items-center justify-between text-xs">
+                  <span class="text-gray-400">Chave Pix Fictícia:</span>
+                  <span class="font-mono text-gray-200 bg-white/5 px-2 py-1 rounded">estudante.4ds@s3bank.demo</span>
+                </div>
+              </div>
+
+              <!-- Mini Extrato -->
+              <div class="glass-card rounded-2xl p-6">
+                <h3 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
+                  <i data-lucide="history" class="w-4 h-4 text-electricBlue"></i>
+                  Histórico de Movimentações (<code class="text-xs text-purple-300">transacoes</code>)
+                </h3>
+                <div id="simTransactionsList" class="space-y-2.5 max-h-[260px] overflow-y-auto pr-1">
+                  <!-- Preenchido via JS -->
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- =====================================================================
+       MODO 2: MODO APRESENTAÇÃO (PITCH DECK PARA BANCA DE TCC)
+       ===================================================================== -->
+  <section id="pitchView" class="hidden flex-1 flex-col justify-between max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <!-- Barra de Progresso Superior do Pitch -->
+    <div class="mb-4">
+      <div class="flex items-center justify-between text-xs text-gray-400 mb-2">
+        <span class="font-mono text-purple-300 font-semibold">APRESENTAÇÃO DE BANCA • TCC SENAI OSASCO (4DS)</span>
+        <span id="slideCounterText" class="font-mono font-bold text-white">Slide 1 de 7</span>
+      </div>
+      <div class="w-full h-1.5 bg-gray-800 rounded-full overflow-hidden">
+        <div id="slideProgressBar" class="h-full bg-gradient-to-r from-neonPurple via-electricBlue to-emeraldGreen transition-all duration-300" style="width: 14.28%;"></div>
+      </div>
+    </div>
+
+    <!-- Palco do Slide -->
+    <div id="slideStage" class="glass-card rounded-3xl p-6 sm:p-10 lg:p-12 flex-1 flex flex-col justify-center min-h-[460px] relative overflow-hidden fade-in">
+      <!-- Conteúdo do Slide Injetado via JS -->
+    </div>
+
+    <!-- Controles Inferiores do Pitch Deck -->
+    <div class="mt-5 flex flex-wrap items-center justify-between gap-4">
+      <button onclick="switchAppMode('hub')" class="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs sm:text-sm font-medium text-gray-300 flex items-center gap-2 transition-all">
+        <i data-lucide="x" class="w-4 h-4"></i>
+        <span>Sair do Pitch (ESC)</span>
+      </button>
+
+      <!-- Indicadores (Dots) -->
+      <div id="slideDots" class="flex items-center gap-2"></div>
+
+      <div class="flex items-center gap-2.5">
+        <button id="btnPrevSlide" onclick="changeSlide(-1)" class="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs sm:text-sm font-semibold text-white flex items-center gap-1.5 disabled:opacity-40 transition-all">
+          <i data-lucide="chevron-left" class="w-4 h-4"></i>
+          <span>Anterior</span>
+        </button>
+        <button id="btnNextSlide" onclick="changeSlide(1)" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-neonPurple to-electricBlue hover:opacity-95 text-xs sm:text-sm font-semibold text-white flex items-center gap-1.5 shadow-lg shadow-neonPurple/30 transition-all">
+          <span>Próximo</span>
+          <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RODAPÉ INSTITUCIONAL -->
+  <footer class="border-t border-white/10 py-4 px-4 text-center text-xs text-gray-500 mt-auto">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <span>SENAI Osasco — Curso Técnico em Desenvolvimento de Sistemas (Turma 4DS)</span>
+      <span>Integrantes: Cauã Borges • Denise Gonçalves • Pedro Campos</span>
+    </div>
+  </footer>
+
+  <!-- =====================================================================
+       JAVASCRIPT MODULAR (DADOS, ESTADO, SIMULADOR E SLIDES)
+       ===================================================================== -->
+  <script>
+    // 1. DADOS ESTRUTURADOS DA DOCUMENTAÇÃO TÉCNICA
+    const DIRECTORY_DATA = {
+      mobile: [
+        { path: 'lib/main.dart', type: 'file', desc: 'Ponto de entrada do aplicativo Flutter. Inicializa o Supabase, configura o MultiProvider e carrega o MaterialApp com tema dark (Material 3).', role: 'Inicialização global e injeção de dependências.' },
+        { path: 'lib/core/theme/', type: 'folder', desc: 'Define AppColors e ThemeData seguindo o padrão Material 3 em modo escuro com identidade visual S3Bank.', role: 'Padronização visual e tokens de cores.' },
+        { path: 'lib/core/pix_payload_generator.dart', type: 'file', desc: 'Gera payloads Pix estáticos no padrão BR Code (EMV), calculando tamanhos de campos, removendo acentos e gerando o checksum CRC16.', role: 'Núcleo lógico do Pix Copia e Cola e QR Code.' },
+        { path: 'lib/models/', type: 'folder', desc: 'Modelos de dados tipados: UserTier (enum de níveis e percentuais CDI), Transaction, SavingsGoal e CardModel.', role: 'Representação estruturada das entidades de domínio.' },
+        { path: 'lib/services/', type: 'folder', desc: 'Concentra supabase_config.dart, BankService, BankActions e AccountDataCoordinator (carrega e sincroniza os dados ao entrar na conta).', role: 'Comunicação externa com Supabase Auth, tabelas e funções RPC.' },
+        { path: 'lib/providers/', type: 'folder', desc: 'Gerenciamento reativo com ChangeNotifier: AuthProvider, UserProvider, WalletProvider, SavingsProvider, PixKeysProvider e CardProvider.', role: 'Controle de estado da interface e sincronização com serviços.' },
+        { path: 'lib/widgets/', type: 'folder', desc: 'Componentes visuais reutilizáveis: cartão digital dinâmico, exibição de saldo ocultável, badges de nível, botões e campos monetários.', role: 'Reaproveitamento de UI e consistência visual.' },
+        { path: 'lib/screens/auth/', type: 'folder', desc: 'Telas de login, cadastro com confirmação de e-mail e recuperação de senha em 3 etapas via Supabase Auth.', role: 'Fluxo de autenticação e controle de acesso.' },
+        { path: 'lib/screens/dashboard/', type: 'folder', desc: 'Tela inicial (Início) com saldo ocultável, nível atual, barra de progresso de constância e extrato recente.', role: 'Painel principal do usuário.' },
+        { path: 'lib/screens/pix/', type: 'folder', desc: 'Área Pix com fluxo demonstrativo de pagamento, recebimento por QR Code/Copia e Cola e gerenciamento de chaves Pix.', role: 'Operações e chaves Pix.' },
+        { path: 'lib/screens/savings/', type: 'folder', desc: 'Módulo "Guardar Dinheiro" para criação de caixinhas/metas, aportes, resgates e cálculo de rendimento CDI.', role: 'Motor de economia e gamificação.' },
+        { path: 'lib/screens/card/', type: 'folder', desc: 'Visualização do cartão digital que muda de cor conforme o nível, com dados mascarados e opção de bloqueio.', role: 'Gestão visual do cartão.' },
+        { path: 'lib/screens/profile/', type: 'folder', desc: 'Exibição de nome, nível conquistado e encerramento de sessão.', role: 'Dados do perfil do usuário.' },
+        { path: 'test/', type: 'folder', desc: 'Suíte de testes automatizados (user_tier_test, pix_payload_generator_test, wallet_provider_test, savings_and_pix_keys_test) executada no GitHub Actions.', role: 'Garantia de qualidade e CI/CD.' },
+      ],
+      web: [
+        { path: 'src/main.jsx', type: 'file', desc: 'Ponto de entrada da aplicação React 18, realizando a montagem no DOM e importação dos estilos globais.', role: 'Inicialização do front-end Web.' },
+        { path: 'src/App.jsx', type: 'file', desc: 'Composição principal da aplicação Web e configuração de rotas via React Router DOM.', role: 'Roteamento entre Landing Page, Cadastro, Sobre, Termos, Privacidade e Ajuda.' },
+        { path: 'src/styles/tokens.css', type: 'file', desc: 'Tokens visuais, variáveis CSS de cores, tipografia e espaçamentos da identidade S3Bank.', role: 'Design System base da plataforma Web.' },
+        { path: 'src/components/Header.jsx', type: 'file', desc: 'Cabeçalho de navegação institucional com links de acesso rápido e chamada para abertura de conta.', role: 'Navegação superior.' },
+        { path: 'src/components/Hero.jsx', type: 'file', desc: 'Seção principal de impacto visual apresentando a proposta de valor do S3Bank.', role: 'Primeira dobra e conversão.' },
+        { path: 'src/components/Benefits.jsx', type: 'file', desc: 'Cards destacando os diferenciais de organização financeira e gamificação.', role: 'Apresentação de benefícios.' },
+        { path: 'src/components/CardTiers.jsx', type: 'file', desc: 'Vitrine interativa exibindo os planos e níveis dos cartões (Bronze, Prata, Ouro e Diamante).', role: 'Demonstração visual dos níveis.' },
+        { path: 'src/components/AppShowcase.jsx', type: 'file', desc: 'Mockup visual demonstrando a experiência de uso do aplicativo móvel.', role: 'Ponte visual entre Site e App.' },
+        { path: 'src/cadasto.jsx', type: 'file', desc: 'Tela de cadastro demonstrativo inicial com a identidade visual da marca (não realiza autenticação real no backend).', role: 'Onboarding demonstrativo.' },
+        { path: 'src/About.jsx / Terms.jsx / Privacy.jsx / Help.jsx', type: 'file', desc: 'Páginas institucionais complementares de Sobre, Termos de Uso, Política de Privacidade e Central de Ajuda.', role: 'Conteúdo institucional e suporte.' },
+      ]
+    };
+
+    const REQUIREMENTS_DATA = [
+      // Requisitos Funcionais (RF01 - RF11)
+      { id: 'RF01', type: 'RF', title: 'Cadastro de Usuário', desc: 'O sistema deve permitir o cadastro de usuário.' },
+      { id: 'RF02', type: 'RF', title: 'Login e Logout', desc: 'O sistema deve permitir login e encerramento de sessão.' },
+      { id: 'RF03', type: 'RF', title: 'Recuperação de Acesso', desc: 'O sistema deve oferecer recuperação de acesso/senha.' },
+      { id: 'RF04', type: 'RF', title: 'Consulta de Saldo', desc: 'O usuário deve conseguir consultar informações de saldo.' },
+      { id: 'RF05', type: 'RF', title: 'Histórico de Transações', desc: 'O usuário deve conseguir consultar o histórico de transações.' },
+      { id: 'RF06', type: 'RF', title: 'Fluxo e Chaves Pix', desc: 'O sistema deve disponibilizar fluxo de Pix e gerenciamento de chaves Pix, conforme as operações implementadas.' },
+      { id: 'RF07', type: 'RF', title: 'Caixinhas e Metas', desc: 'O usuário deve conseguir criar e acompanhar caixinhas/metas de economia.' },
+      { id: 'RF08', type: 'RF', title: 'Aporte e Resgate', desc: 'O sistema deve disponibilizar operações de aporte e resgate nas caixinhas, conforme regras implementadas.' },
+      { id: 'RF09', type: 'RF', title: 'Cartão Digital', desc: 'O usuário deve conseguir visualizar informações do cartão digital e seu estado demonstrativo.' },
+      { id: 'RF10', type: 'RF', title: 'Pontuação e Nível', desc: 'O sistema deve apresentar pontuação e nível do usuário.' },
+      { id: 'RF11', type: 'RF', title: 'Gestão de Perfil', desc: 'O usuário deve conseguir consultar e atualizar informações de perfil, quando permitido.' },
+
+      // Requisitos Não Funcionais (RNF01 - RNF08)
+      { id: 'RNF01', type: 'RNF', title: 'Usabilidade', desc: 'Apresentar navegação compreensível e consistente.' },
+      { id: 'RNF02', type: 'RNF', title: 'Responsividade', desc: 'Adaptar a interface Web a diferentes dimensões de tela.' },
+      { id: 'RNF03', type: 'RNF', title: 'Manutenibilidade', desc: 'Manter separação de responsabilidades e componentes reutilizáveis.' },
+      { id: 'RNF04', type: 'RNF', title: 'Segurança', desc: 'Utilizar autenticação e políticas de autorização no acesso aos dados.' },
+      { id: 'RNF05', type: 'RNF', title: 'Persistência', desc: 'Manter os dados do aplicativo no PostgreSQL hospedado pelo Supabase, para os recursos integrados.' },
+      { id: 'RNF06', type: 'RNF', title: 'Compatibilidade', desc: 'Executar o aplicativo em plataformas suportadas pelo Flutter.' },
+      { id: 'RNF07', type: 'RNF', title: 'Integridade', desc: 'Validar valores e operações antes de persistir alterações financeiras.' },
+      { id: 'RNF08', type: 'RNF', title: 'Disponibilidade', desc: 'Depender da disponibilidade dos serviços Supabase e da conexão de rede para recursos em nuvem.' },
+
+      // Regras de Negócio (RN01 - RN07)
+      { id: 'RN01', type: 'RN', title: 'Sessão Autenticada', desc: 'O acesso às funcionalidades privadas depende de uma sessão autenticada.' },
+      { id: 'RN02', type: 'RN', title: 'Validação de Saldo e Valores', desc: 'As movimentações devem respeitar as validações de valor e saldo definidas pela aplicação e pelas funções do banco.' },
+      { id: 'RN03', type: 'RN', title: 'Finalidade das Caixinhas', desc: 'As caixinhas representam objetivos ou reservas de economia do usuário.' },
+      { id: 'RN04', type: 'RN', title: 'Pontuação de Constância', desc: 'Aportes podem contribuir para a pontuação de constância, conforme a regra implementada.' },
+      { id: 'RN05', type: 'RN', title: 'Progressão de Níveis', desc: 'A pontuação pode determinar a progressão entre níveis Bronze, Prata, Ouro e Diamante.' },
+      { id: 'RN06', type: 'RN', title: 'Parâmetros de CDI', desc: 'Percentuais associados ao CDI devem ser tratados como parâmetros demonstrativos até que exista validação e enquadramento financeiro apropriado.' },
+      { id: 'RN07', type: 'RN', title: 'Autorização por Linha (RLS)', desc: 'O usuário só pode consultar ou alterar registros autorizados pelas regras de acesso do banco.' },
+    ];
+
+    const USE_CASES_DATA = {
+      mobile: {
+        actor: 'Usuário',
+        support: 'Supabase (Auth & PostgreSQL)',
+        systemTitle: 'Aplicativo Móvel S3Bank',
+        summary: 'O usuário acessa sua conta e utiliza as funcionalidades do aplicativo para acompanhar e organizar suas finanças com apoio do Supabase.',
+        cases: [
+          { name: 'Criar conta', desc: 'Realizar o fluxo de criação de uma conta de acesso no aplicativo.' },
+          { name: 'Entrar na conta', desc: 'Autenticar-se para acessar as funcionalidades do aplicativo.' },
+          { name: 'Recuperar senha', desc: 'Solicitar a recuperação de acesso quando não lembrar a senha.' },
+          { name: 'Consultar saldo', desc: 'Visualizar o saldo apresentado pelo aplicativo.' },
+          { name: 'Consultar transações', desc: 'Visualizar o histórico de movimentações financeiras registrado.' },
+          { name: 'Gerenciar carteiras', desc: 'Acessar e organizar as carteiras disponíveis no aplicativo.' },
+          { name: 'Gerenciar caixinhas', desc: 'Criar, consultar ou administrar objetivos de economia, conforme as opções implementadas.' },
+          { name: 'Consultar cartões', desc: 'Visualizar os cartões cadastrados ou apresentados no aplicativo.' },
+          { name: 'Gerenciar chaves Pix', desc: 'Acessar as opções de cadastro e gerenciamento de chaves Pix (sem comprovar integração bancária externa).' },
+          { name: 'Gerenciar perfil', desc: 'Consultar ou atualizar as informações do perfil do usuário.' },
+        ]
+      },
+      web: {
+        actor: 'Visitante',
+        support: 'Interface Front-End (React + Vite)',
+        systemTitle: 'Sistema S3Bank — Site Institucional',
+        summary: 'O visitante navega pelo conteúdo do site e consulta informações institucionais, planos de cartões e páginas de apoio.',
+        cases: [
+          { name: 'Acessar página inicial', desc: 'Visualizar a página principal e a apresentação do projeto.' },
+          { name: 'Conhecer o S3Bank', desc: 'Consultar informações sobre a proposta e os objetivos do S3Bank.' },
+          { name: 'Consultar termos de uso', desc: 'Visualizar as condições de utilização apresentadas no site.' },
+          { name: 'Consultar política de privacidade', desc: 'Visualizar as informações de privacidade disponibilizadas.' },
+          { name: 'Acessar ajuda e suporte', desc: 'Consultar orientações e informações de apoio.' },
+          { name: 'Visualizar cadastro demonstrativo', desc: 'Acessar a tela de cadastro apresentada como demonstração; não pressupõe autenticação real no site.' },
+        ]
+      }
+    };
+
+    const PITCH_SLIDES = [
+      {
+        tag: 'SLIDE 01 • ABERTURA',
+        title: 'S3Bank: Organização Financeira & Gamificação por Constância',
+        subtitle: 'Plataforma Web Institucional e Aplicativo Mobile Multiplataforma',
+        content: `
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+            <div class="bg-bgDeep/80 border border-purple-500/30 rounded-2xl p-5">
+              <p class="text-xs text-purple-400 font-mono uppercase mb-1">Instituição</p>
+              <p class="text-lg font-bold text-white">SENAI Osasco</p>
+              <p class="text-xs text-gray-400 mt-1">Curso Técnico em Desenvolvimento de Sistemas — Turma 4DS</p>
+            </div>
+            <div class="bg-bgDeep/80 border border-blue-500/30 rounded-2xl p-5">
+              <p class="text-xs text-blue-400 font-mono uppercase mb-1">Equipe Executora</p>
+              <p class="text-sm font-bold text-white leading-snug">Cauã Borges<br/>Denise Gonçalves<br/>Pedro Campos</p>
+            </div>
+            <div class="bg-bgDeep/80 border border-emerald-500/30 rounded-2xl p-5">
+              <p class="text-xs text-emerald-400 font-mono uppercase mb-1">Escopo Entregue</p>
+              <p class="text-sm text-gray-200 leading-relaxed">Front-end Web (React + Vite), App Mobile (Flutter + Dart) e Backend em nuvem (Supabase).</p>
+            </div>
+          </div>
+        `
+      },
+      {
+        tag: 'SLIDE 02 • O PROBLEMA & PROPOSTA DE VALOR',
+        title: 'Por que jovens têm dificuldade em guardar dinheiro?',
+        subtitle: 'Falta de hábito, interfaces complexas e ausência de recompensas imediatas.',
+        content: `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <div class="bg-red-950/20 border border-red-500/30 rounded-2xl p-6">
+              <h4 class="text-base font-bold text-red-300 mb-3 flex items-center gap-2">⚠️ A Dor Identificada</h4>
+              <ul class="space-y-2.5 text-sm text-gray-300">
+                <li>• Dificuldade de visualizar metas financeiras de forma clara.</li>
+                <li>• Desmotivação ao poupar pequenas quantias no início.</li>
+                <li>• Falta de educação prática sobre rendimento e constância.</li>
+              </ul>
+            </div>
+            <div class="bg-emerald-950/20 border border-emerald-500/30 rounded-2xl p-6">
+              <h4 class="text-base font-bold text-emerald-300 mb-3 flex items-center gap-2">💡 A Solução S3Bank</h4>
+              <ul class="space-y-2.5 text-sm text-gray-300">
+                <li>• <strong>Caixinhas com metas</strong> e acompanhamento visual de progresso.</li>
+                <li>• <strong>Pontos de Constância</strong>: valoriza a frequência dos aportes.</li>
+                <li>• <strong>Recompensa progressiva</strong>: desbloqueia até 140% do CDI demonstrativo e evolui o visual do cartão.</li>
+              </ul>
+            </div>
+          </div>
+        `
+      },
+      {
+        tag: 'SLIDE 03 • ECOSSISTEMA S3BANK',
+        title: 'Dois Projetos Complementares, Papéis Bem Definidos',
+        subtitle: 'Separação transparente entre apresentação institucional e operação funcional.',
+        content: `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <div class="bg-bgDeep/85 border border-purple-500/35 rounded-2xl p-6">
+              <span class="text-xs font-mono px-2.5 py-1 rounded bg-purple-500/20 text-purple-300">React 18 + Vite + React Router</span>
+              <h4 class="text-lg font-bold text-white mt-3 mb-2">Plataforma Web (Site)</h4>
+              <p class="text-sm text-gray-300 leading-relaxed mb-3">Interface responsiva voltada ao <strong>Visitante</strong>, apresentando a marca, benefícios, vitrine de cartões, páginas institucionais (Sobre, Termos, Privacidade, Ajuda) e cadastro demonstrativo.</p>
+              <p class="text-xs font-mono text-gray-400">Repo: github.com/ninis333/S3BankTcc</p>
+            </div>
+            <div class="bg-bgDeep/85 border border-blue-500/35 rounded-2xl p-6">
+              <span class="text-xs font-mono px-2.5 py-1 rounded bg-blue-500/20 text-blue-300">Flutter + Dart + Provider + Supabase</span>
+              <h4 class="text-lg font-bold text-white mt-3 mb-2">Aplicativo Móvel</h4>
+              <p class="text-sm text-gray-300 leading-relaxed mb-3">Concentra as 10 funcionalidades do <strong>Usuário</strong>: autenticação real via Supabase Auth, saldo, extrato, Pix (BR Code CRC16), caixinhas, cartão dinâmico e níveis.</p>
+              <p class="text-xs font-mono text-gray-400">Repo: github.com/CauaBorges438/S3Bank</p>
+            </div>
+          </div>
+        `
+      },
+      {
+        tag: 'SLIDE 04 • MECÂNICA DE GAMIFICAÇÃO',
+        title: 'Sistema de Níveis & Evolução do Cartão Digital',
+        subtitle: 'Quanto maior a constância nos aportes, maior o percentual demonstrativo do CDI.',
+        content: `
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+            <div class="tier-bronze rounded-2xl p-5 text-white">
+              <span class="text-xs font-mono uppercase opacity-80">Nível 1</span>
+              <h4 class="text-xl font-extrabold mt-1">Bronze</h4>
+              <p class="text-2xl font-black mt-3">100% CDI</p>
+              <p class="text-xs mt-2 opacity-85">0 a 99 pontos de constância</p>
+            </div>
+            <div class="tier-prata rounded-2xl p-5 text-white">
+              <span class="text-xs font-mono uppercase opacity-80">Nível 2</span>
+              <h4 class="text-xl font-extrabold mt-1">Prata</h4>
+              <p class="text-2xl font-black mt-3">115% CDI</p>
+              <p class="text-xs mt-2 opacity-85">100 a 249 pontos de constância</p>
+            </div>
+            <div class="tier-ouro rounded-2xl p-5 text-white">
+              <span class="text-xs font-mono uppercase opacity-80">Nível 3</span>
+              <h4 class="text-xl font-extrabold mt-1">Ouro</h4>
+              <p class="text-2xl font-black mt-3">130% CDI</p>
+              <p class="text-xs mt-2 opacity-85">250 a 499 pontos de constância</p>
+            </div>
+            <div class="tier-diamante rounded-2xl p-5 text-white">
+              <span class="text-xs font-mono uppercase opacity-80">Nível 4</span>
+              <h4 class="text-xl font-extrabold mt-1">Diamante</h4>
+              <p class="text-2xl font-black mt-3">140% CDI</p>
+              <p class="text-xs mt-2 opacity-85">500+ pontos • Visual exclusivo</p>
+            </div>
+          </div>
+          <p class="text-xs text-gray-400 mt-4 text-center">Ao ultrapassar o limite de um nível, os pontos excedentes são aproveitados automaticamente no nível seguinte (<code class="text-purple-300">UserProvider.registerDeposit</code>).</p>
+        `
+      },
+      {
+        tag: 'SLIDE 05 • ARQUITETURA & BANCO DE DADOS',
+        title: 'Engenharia de Software & Persistência em Nuvem',
+        subtitle: 'Separação clara de responsabilidades e transações atômicas no PostgreSQL.',
+        content: `
+          <div class="space-y-5 mt-5">
+            <div class="bg-bgDeep/90 border border-white/10 rounded-xl p-4 text-center font-mono text-xs sm:text-sm text-blue-200">
+              Telas Flutter → Providers (ChangeNotifier) → Services (BankService) → Supabase Auth & PostgreSQL (RPC)
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="bg-bgDeep/80 border border-white/10 rounded-xl p-4">
+                <h4 class="text-sm font-bold text-white mb-2">8 Tabelas Estruturadas</h4>
+                <p class="text-xs font-mono text-purple-300 leading-relaxed">
+                  perfis • carteiras • transacoes • caixinhas • cartoes • chaves_pix • regras_nivel • taxas_cdi
+                </p>
+              </div>
+              <div class="bg-bgDeep/80 border border-white/10 rounded-xl p-4">
+                <h4 class="text-sm font-bold text-white mb-2">Funções RPC Transacionais</h4>
+                <p class="text-xs text-gray-300 leading-relaxed">
+                  <code class="text-emerald-300">enviar_pix</code>, <code class="text-emerald-300">receber_pix</code>, <code class="text-emerald-300">depositar_caixinha</code> e <code class="text-emerald-300">resgatar_caixinha</code> validam saldo e atualizam pontos em uma única transação.
+                </p>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        tag: 'SLIDE 06 • SEGURANÇA, TESTES & ÉTICA',
+        title: 'Boas Práticas de Engenharia e Transparência',
+        subtitle: 'Controle de acesso por linha, testes automatizados e delimitação ética.',
+        content: `
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+            <div class="bg-bgDeep/80 border border-emerald-500/30 rounded-2xl p-5">
+              <h4 class="text-sm font-bold text-emerald-300 mb-2">🔒 Segurança & RLS</h4>
+              <p class="text-xs text-gray-300 leading-relaxed">Row Level Security (RLS) garante que cada usuário acesse apenas os próprios registros. Chaves administrativas (<code class="text-red-300">service_role</code>) nunca são expostas no cliente.</p>
+            </div>
+            <div class="bg-bgDeep/80 border border-blue-500/30 rounded-2xl p-5">
+              <h4 class="text-sm font-bold text-blue-300 mb-2">🧪 Testes & CI/CD</h4>
+              <p class="text-xs text-gray-300 leading-relaxed">5 suítes unitárias (<code class="text-blue-200">flutter test</code>) cobrindo níveis CDI, CRC16 do Pix, validações de carteira e formatação monetária, rodadas via GitHub Actions.</p>
+            </div>
+            <div class="bg-bgDeep/80 border border-amber-500/30 rounded-2xl p-5">
+              <h4 class="text-sm font-bold text-amber-300 mb-2">⚖️ Compromisso Ético</h4>
+              <p class="text-xs text-gray-300 leading-relaxed">Documentação transparente: o sistema é demonstrativo, não movimenta dinheiro real e aponta a criptografia de dados do cartão como melhoria futura.</p>
+            </div>
+          </div>
+        `
+      },
+      {
+        tag: 'SLIDE 07 • PRÓXIMOS PASSOS & ENCERRAMENTO',
+        title: 'Evolução Técnica e Encerramento',
+        subtitle: 'Roadmap para consolidação do ecossistema S3Bank.',
+        content: `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <div class="bg-bgDeep/80 border border-white/10 rounded-2xl p-5">
+              <h4 class="text-sm font-bold text-purple-300 mb-3">🚀 Próximas Etapas Mapeadas</h4>
+              <ul class="text-xs text-gray-300 space-y-2">
+                <li>1. Validar script SQL/migrations completo e diagrama físico.</li>
+                <li>2. Integrar o front-end Web ao mesmo backend Supabase.</li>
+                <li>3. Proteger/mascarar armazenamento de número e CVV do cartão no banco.</li>
+                <li>4. Expandir telas de Dados Pessoais, Segurança e Ajuda no perfil Mobile.</li>
+              </ul>
+            </div>
+            <div class="bg-gradient-to-br from-neonPurple/20 to-electricBlue/20 border border-neonPurple/40 rounded-2xl p-5 flex flex-col justify-between">
+              <div>
+                <h4 class="text-base font-bold text-white mb-2">Obrigado, Banca Avaliadora!</h4>
+                <p class="text-xs text-gray-300 leading-relaxed">Projeto desenvolvido pela Turma 4DS — SENAI Osasco:<br/><strong class="text-white">Cauã Borges, Denise Gonçalves e Pedro Campos</strong>.</p>
+              </div>
+              <button onclick="switchAppMode('hub'); switchHubTab('simulator');" class="mt-4 w-full py-2.5 px-4 rounded-xl bg-emeraldGreen text-bgDeep font-bold text-xs hover:bg-emerald-400 transition-all">
+                Abrir Simulador Interativo ao Vivo →
+              </button>
+            </div>
+          </div>
+        `
+      }
+    ];
+
+    // 2. ESTADO DA APLICAÇÃO
+    let currentMode = 'hub';
+    let currentHubTab = 'overview';
+    let currentTreeRepo = 'mobile';
+    let currentReqFilter = 'ALL';
+    let currentUseCaseView = 'mobile';
+    let currentSlideIndex = 0;
+
+    // Estado do Simulador
+    let simState = {
+      wallet: 1000.00,
+      savings: 0.00,
+      points: 0,
+      cardVisible: false,
+      cardLocked: false,
+      transactions: [
+        { title: 'Bônus de Boas-Vindas (trigger handle_new_user)', amount: 1000.00, type: 'in', time: 'Agora mesmo' }
+      ]
+    };
+
+    // 3. NAVEGAÇÃO ENTRE MODOS E ABAS
+    function switchAppMode(mode) {
+      currentMode = mode;
+      const hubView = document.getElementById('hubView');
+      const pitchView = document.getElementById('pitchView');
+      const btnHub = document.getElementById('btnModeHub');
+      const btnPitch = document.getElementById('btnModePitch');
+
+      if (mode === 'hub') {
+        hubView.classList.remove('hidden');
+        pitchView.classList.add('hidden');
+        pitchView.classList.remove('flex');
+
+        btnHub.className = 'flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all bg-neonPurple text-white shadow-md shadow-neonPurple/30';
+        btnPitch.className = 'flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all text-gray-400 hover:text-white';
+      } else {
+        hubView.classList.add('hidden');
+        pitchView.classList.remove('hidden');
+        pitchView.classList.add('flex');
+
+        btnPitch.className = 'flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all bg-electricBlue text-white shadow-md shadow-electricBlue/30';
+        btnHub.className = 'flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all text-gray-400 hover:text-white';
+        renderSlide();
+      }
+      lucide.createIcons();
+    }
+
+    function switchHubTab(tabName) {
+      currentHubTab = tabName;
+      document.querySelectorAll('.hub-section').forEach(sec => sec.classList.add('hidden'));
+      const target = document.getElementById(`tab-${tabName}`);
+      if (target) target.classList.remove('hidden');
+
+      document.querySelectorAll('.hub-tab-btn').forEach(btn => {
+        if (btn.dataset.tab === tabName) {
+          btn.className = 'hub-tab-btn active flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-left whitespace-nowrap transition-all bg-neonPurple/20 text-white border border-neonPurple/40';
+        } else {
+          btn.className = 'hub-tab-btn flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-left whitespace-nowrap transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent';
+        }
+      });
+      lucide.createIcons();
+    }
+
+    // 4. ÁRVORE DE DIRETÓRIOS INTERATIVA
+    function switchTreeRepo(repo) {
+      currentTreeRepo = repo;
+      const btnMobile = document.getElementById('btnTreeMobile');
+      const btnWeb = document.getElementById('btnTreeWeb');
+
+      if (repo === 'mobile') {
+        btnMobile.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-electricBlue text-white transition-all';
+        btnWeb.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold text-gray-400 hover:text-white transition-all';
+        document.getElementById('treeRepoLabel').textContent = 'Repositório: CauaBorges438/S3Bank';
+      } else {
+        btnWeb.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-neonPurple text-white transition-all';
+        btnMobile.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold text-gray-400 hover:text-white transition-all';
+        document.getElementById('treeRepoLabel').textContent = 'Repositório: ninis333/S3BankTcc';
+      }
+      renderDirectoryTree(0);
+    }
+
+    function renderDirectoryTree(selectedIndex = 0) {
+      const items = DIRECTORY_DATA[currentTreeRepo];
+      const container = document.getElementById('treeListContainer');
+      container.innerHTML = items.map((item, idx) => {
+        const isSelected = idx === selectedIndex;
+        const iconName = item.type === 'folder' ? 'folder' : 'file-code';
+        const iconColor = item.type === 'folder' ? 'text-amber-400' : 'text-blue-400';
+        return `
+          <button onclick="renderDirectoryTree(${idx})" class="w-full text-left px-3 py-2 rounded-lg flex items-center gap-2.5 transition-all ${isSelected ? 'bg-neonPurple/20 border border-neonPurple/40 text-white font-semibold' : 'text-gray-300 hover:bg-white/5 border border-transparent'}">
+            <i data-lucide="${iconName}" class="w-4 h-4 ${iconColor} shrink-0"></i>
+            <span class="truncate">${item.path}</span>
+          </button>
+        `;
+      }).join('');
+
+      const activeItem = items[selectedIndex];
+      document.getElementById('treeDetailPath').textContent = activeItem.path;
+      document.getElementById('treeDetailDesc').textContent = activeItem.desc;
+      document.getElementById('treeDetailRole').textContent = activeItem.role;
+      lucide.createIcons();
+    }
+
+    // 5. MATRIZ DE REQUISITOS & REGRAS DE NEGÓCIO
+    function setReqFilter(filter) {
+      currentReqFilter = filter;
+      document.querySelectorAll('.req-filter-btn').forEach(btn => {
+        if (btn.dataset.reqfilter === filter) {
+          btn.className = 'req-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-neonPurple text-white transition-all';
+        } else {
+          btn.className = 'req-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white/5 text-gray-300 hover:bg-white/10 border border-white/10 transition-all';
+        }
+      });
+      renderRequirements();
+    }
+
+    function renderRequirements() {
+      const query = document.getElementById('reqSearchInput').value.toLowerCase().trim();
+      const filtered = REQUIREMENTS_DATA.filter(item => {
+        const matchesType = currentReqFilter === 'ALL' || item.type === currentReqFilter;
+        const matchesText = item.id.toLowerCase().includes(query) || item.title.toLowerCase().includes(query) || item.desc.toLowerCase().includes(query);
+        return matchesType && matchesText;
+      });
+
+      const grid = document.getElementById('requirementsGrid');
+      if (!filtered.length) {
+        grid.innerHTML = `<div class="col-span-full text-center py-8 text-sm text-gray-400">Nenhum requisito encontrado para "${query}".</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(item => {
+        const badgeStyles = {
+          RF: 'bg-blue-500/15 text-blue-300 border-blue-500/30',
+          RNF: 'bg-purple-500/15 text-purple-300 border-purple-500/30',
+          RN: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
+        }[item.type];
+
+        return `
+          <div class="bg-bgDeep/80 border border-white/10 hover:border-white/20 rounded-xl p-4 transition-all">
+            <div class="flex items-center justify-between gap-2 mb-1.5">
+              <span class="font-mono text-xs font-bold px-2.5 py-0.5 rounded-md border ${badgeStyles}">${item.id}</span>
+              <span class="text-xs font-semibold text-gray-300">${item.title}</span>
+            </div>
+            <p class="text-xs text-gray-400 leading-relaxed">${item.desc}</p>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 6. DIAGRAMAS DE CASOS DE USO (UML)
+    function switchUseCaseView(view) {
+      currentUseCaseView = view;
+      const btnMobile = document.getElementById('btnUcMobile');
+      const btnWeb = document.getElementById('btnUcWeb');
+
+      if (view === 'mobile') {
+        btnMobile.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-neonPurple text-white transition-all';
+        btnWeb.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold text-gray-400 hover:text-white transition-all';
+      } else {
+        btnWeb.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-electricBlue text-white transition-all';
+        btnMobile.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold text-gray-400 hover:text-white transition-all';
+      }
+      renderUseCases();
+    }
+
+    function renderUseCases() {
+      const data = USE_CASES_DATA[currentUseCaseView];
+      const wrapper = document.getElementById('ucDiagramWrapper');
+
+      wrapper.innerHTML = `
+        <div class="bg-bgDeep/90 border border-white/10 rounded-2xl p-5">
+          <div class="flex flex-col md:flex-row items-center gap-6">
+            <!-- Ator Principal -->
+            <div class="flex flex-col items-center justify-center p-4 rounded-xl bg-white/5 border border-white/10 min-w-[140px] text-center">
+              <div class="w-12 h-12 rounded-full bg-neonPurple/20 border border-neonPurple/40 flex items-center justify-center text-purple-300 mb-2">
+                <i data-lucide="user" class="w-6 h-6"></i>
+              </div>
+              <span class="text-xs uppercase text-gray-400">Ator Principal</span>
+              <span class="text-sm font-bold text-white">${data.actor}</span>
+            </div>
+
+            <!-- Fronteira do Sistema & Elipses de Casos de Uso -->
+            <div class="flex-1 w-full border-2 border-dashed border-white/15 rounded-2xl p-4 sm:p-5 bg-slate-950/50">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-bold uppercase tracking-wider text-blue-300">${data.systemTitle}</span>
+                <span class="text-[11px] font-mono text-gray-400">Apoio: ${data.support}</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                ${data.cases.map(uc => `
+                  <div class="px-4 py-2 rounded-full bg-gradient-to-r from-purple-950/60 to-blue-950/60 border border-purple-400/30 text-center text-xs font-medium text-purple-100 shadow-sm">
+                    ${uc.name}
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+          <p class="text-xs text-gray-400 mt-4">${data.summary}</p>
+        </div>
+
+        <!-- Tabela Descritiva -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs sm:text-sm border-collapse">
+            <thead>
+              <tr class="border-b border-white/15 text-xs uppercase text-gray-400">
+                <th class="py-2.5 px-3 w-1/3">Caso de Uso</th>
+                <th class="py-2.5 px-3">Descrição Funcional</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/10">
+              ${data.cases.map(uc => `
+                <tr class="hover:bg-white/[0.02]">
+                  <td class="py-2.5 px-3 font-semibold text-white">${uc.name}</td>
+                  <td class="py-2.5 px-3 text-gray-300">${uc.desc}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+      lucide.createIcons();
+    }
+
+    // 7. SIMULADOR GAMIFICADO DE CONSTÂNCIA & CDI
+    function formatBRL(val) {
+      return val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    function getTierInfo(points) {
+      if (points >= 500) {
+        return { name: 'Diamante', cdi: '140% CDI', css: 'tier-diamante', nextName: null, min: 500, max: 500 };
+      } else if (points >= 250) {
+        return { name: 'Ouro', cdi: '130% CDI', css: 'tier-ouro', nextName: 'Diamante (140% CDI)', min: 250, max: 500 };
+      } else if (points >= 100) {
+        return { name: 'Prata', cdi: '115% CDI', css: 'tier-prata', nextName: 'Ouro (130% CDI)', min: 100, max: 250 };
+      } else {
+        return { name: 'Bronze', cdi: '100% CDI', css: 'tier-bronze', nextName: 'Prata (115% CDI)', min: 0, max: 100 };
+      }
+    }
+
+    function makeDeposit(amount) {
+      if (isNaN(amount) || amount <= 0) {
+        updateSimFeedback('Ops! Digite um valor positivo maior que zero para guardar na caixinha.', true);
+        return;
+      }
+      if (amount > simState.wallet) {
+        updateSimFeedback(`Saldo insuficiente na carteira (${formatBRL(simState.wallet)}). Resete o simulador se quiser testar novamente!`, true);
+        return;
+      }
+
+      const prevTier = getTierInfo(simState.points).name;
+      // Regra de Constância: +25 pontos fixos pelo hábito + 10% do valor depositado
+      const earnedPoints = Math.round(25 + amount * 0.1);
+
+      simState.wallet -= amount;
+      simState.savings += amount;
+      simState.points += earnedPoints;
+
+      const newTier = getTierInfo(simState.points);
+      simState.transactions.unshift({
+        title: `Aporte Caixinha (+${earnedPoints} pts de constância)`,
+        amount: amount,
+        type: 'save',
+        time: 'Agora'
+      });
+
+      if (prevTier !== newTier.name) {
+        updateSimFeedback(`🎉 Parabéns! Você subiu para o nível ${newTier.name} e desbloqueou ${newTier.cdi}! Seu cartão digital mudou de visual.`);
+      } else {
+        updateSimFeedback(`Boa! Você guardou ${formatBRL(amount)} e ganhou +${earnedPoints} pontos de constância. Continue mantendo o ritmo!`);
+      }
+
+      renderSimulator();
+    }
+
+    function handleCustomDeposit() {
+      const input = document.getElementById('customDepositInput');
+      const val = parseFloat(input.value);
+      makeDeposit(val);
+      input.value = '';
+    }
+
+    function toggleCardVisibility() {
+      simState.cardVisible = !simState.cardVisible;
+      renderSimulator();
+    }
+
+    function toggleCardLock() {
+      simState.cardLocked = !simState.cardLocked;
+      renderSimulator();
+    }
+
+    function resetSimulator() {
+      simState = {
+        wallet: 1000.00,
+        savings: 0.00,
+        points: 0,
+        cardVisible: false,
+        cardLocked: false,
+        transactions: [
+          { title: 'Bônus de Boas-Vindas (trigger handle_new_user)', amount: 1000.00, type: 'in', time: 'Reiniciado' }
+        ]
+      };
+      updateSimFeedback('Simulador reiniciado! Saldo de R$ 1.000,00 restaurado. Faça aportes para testar a evolução.');
+      renderSimulator();
+    }
+
+    function updateSimFeedback(msg, isError = false) {
+      const box = document.getElementById('simFeedbackBox');
+      const text = document.getElementById('simFeedbackText');
+      text.textContent = msg;
+      if (isError) {
+        box.className = 'p-3.5 rounded-xl bg-red-500/15 border border-red-500/35 text-xs text-red-200 flex items-start gap-2.5';
+      } else {
+        box.className = 'p-3.5 rounded-xl bg-purple-500/10 border border-purple-500/30 text-xs text-purple-200 flex items-start gap-2.5';
+      }
+    }
+
+    function renderSimulator() {
+      const tier = getTierInfo(simState.points);
+      const cardEl = document.getElementById('digitalCardVisual');
+      cardEl.className = `${tier.css} rounded-2xl p-6 text-white relative overflow-hidden transition-all duration-500`;
+
+      document.getElementById('cardTierBadge').textContent = `Nível ${tier.name} • ${tier.cdi}`;
+      document.getElementById('simCdiRateBadge').textContent = `Rendimento: ${tier.cdi}`;
+      document.getElementById('simWalletBalance').textContent = formatBRL(simState.wallet);
+      document.getElementById('simSavingsBalance').textContent = formatBRL(simState.savings);
+      document.getElementById('simPointsText').textContent = `${simState.points} pts`;
+
+      // Progresso
+      if (tier.nextName) {
+        const remaining = tier.max - simState.points;
+        const pct = Math.min(100, Math.max(4, (simState.points / 500) * 100));
+        document.getElementById('simNextTierText').textContent = `Faltam ${remaining} pts para ${tier.nextName}`;
+        document.getElementById('simProgressBar').style.width = `${pct}%`;
+      } else {
+        document.getElementById('simNextTierText').textContent = 'Nível máximo alcançado! (140% CDI)';
+        document.getElementById('simProgressBar').style.width = '100%';
+      }
+
+      // Dados do Cartão (Mascarados vs Visíveis)
+      document.getElementById('cardNumberDisplay').textContent = simState.cardVisible ? '4532 7810 3349 8910' : '4532 •••• •••• 8910';
+      document.getElementById('cardCvvDisplay').textContent = simState.cardVisible ? '404' : '•••';
+
+      const overlay = document.getElementById('cardBlockedOverlay');
+      if (simState.cardLocked) {
+        overlay.classList.remove('hidden');
+      } else {
+        overlay.classList.add('hidden');
+      }
+
+      // Extrato
+      const txContainer = document.getElementById('simTransactionsList');
+      txContainer.innerHTML = simState.transactions.map(tx => {
+        const isSave = tx.type === 'save';
+        return `
+          <div class="flex items-center justify-between p-3 rounded-xl bg-bgDeep/75 border border-white/5 text-xs">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <div class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${isSave ? 'bg-purple-500/20 text-purple-300' : 'bg-emerald-500/20 text-emerald-300'}">
+                <i data-lucide="${isSave ? 'piggy-bank' : 'arrow-down-left'}" class="w-3.5 h-3.5"></i>
+              </div>
+              <div class="truncate">
+                <p class="font-medium text-gray-200 truncate">${tx.title}</p>
+                <p class="text-[10px] text-gray-500">${tx.time}</p>
+              </div>
+            </div>
+            <span class="font-mono font-bold shrink-0 ml-2 ${isSave ? 'text-purple-300' : 'text-emerald-400'}">
+              ${isSave ? '' : '+'}${formatBRL(tx.amount)}
+            </span>
+          </div>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    // 8. MODO APRESENTAÇÃO (PITCH DECK)
+    function changeSlide(delta) {
+      const next = currentSlideIndex + delta;
+      if (next >= 0 && next < PITCH_SLIDES.length) {
+        currentSlideIndex = next;
+        renderSlide();
+      }
+    }
+
+    function goToSlide(idx) {
+      currentSlideIndex = idx;
+      renderSlide();
+    }
+
+    function renderSlide() {
+      const slide = PITCH_SLIDES[currentSlideIndex];
+      const stage = document.getElementById('slideStage');
+      stage.classList.remove('fade-in');
+      void stage.offsetWidth; // trigger reflow
+      stage.classList.add('fade-in');
+
+      stage.innerHTML = `
+        <div class="max-w-4xl mx-auto w-full">
+          <span class="inline-block text-xs font-mono font-bold tracking-wider px-3 py-1 rounded-full bg-neonPurple/15 text-purple-300 border border-neonPurple/30 mb-4">
+            ${slide.tag}
+          </span>
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight mb-2">
+            ${slide.title}
+          </h2>
+          <p class="text-sm sm:text-lg text-gray-400">
+            ${slide.subtitle}
+          </p>
+          ${slide.content}
+        </div>
+      `;
+
+      document.getElementById('slideCounterText').textContent = `Slide ${currentSlideIndex + 1} de ${PITCH_SLIDES.length}`;
+      const pct = ((currentSlideIndex + 1) / PITCH_SLIDES.length) * 100;
+      document.getElementById('slideProgressBar').style.width = `${pct}%`;
+
+      document.getElementById('btnPrevSlide').disabled = currentSlideIndex === 0;
+      document.getElementById('btnNextSlide').disabled = currentSlideIndex === PITCH_SLIDES.length - 1;
+
+      // Dots
+      const dotsContainer = document.getElementById('slideDots');
+      dotsContainer.innerHTML = PITCH_SLIDES.map((_, idx) => `
+        <button onclick="goToSlide(${idx})" aria-label="Ir para slide ${idx + 1}" class="h-2 rounded-full transition-all ${idx === currentSlideIndex ? 'w-6 bg-neonPurple' : 'w-2 bg-gray-600 hover:bg-gray-400'}"></button>
+      `).join('');
+
+      lucide.createIcons();
+    }
+
+    // Atalhos de Teclado para o Pitch Deck
+    document.addEventListener('keydown', (e) => {
+      if (currentMode !== 'pitch') return;
+      if (e.key === 'ArrowRight') changeSlide(1);
+      if (e.key === 'ArrowLeft') changeSlide(-1);
+      if (e.key === 'Escape') switchAppMode('hub');
+    });
+
+    // Inicialização ao carregar a página
+    window.addEventListener('DOMContentLoaded', () => {
+      renderDirectoryTree(0);
+      renderRequirements();
+      renderUseCases();
+      renderSimulator();
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
